@@ -1,7 +1,6 @@
 require('dotenv').config()
 
 const {
-  HOST_PORT,
   PRIVATE_KEY
 } = process.env
 const port = PRIVATE_KEY || 9090

@@ -6,15 +6,18 @@ const SushiToken = artifacts.require('SushiToken.sol')
 const MasterChef = artifacts.require('MasterChef.sol');
 const SushiBar = artifacts.require('SushiBar.sol');
 const SushiMaker = artifacts.require('SushiMaker.sol');
-const Migrator = artifacts.require('Migrator.sol');
+
+const {
+  DEPLOYER_ADDRESS
+} = process.env
 
 module.exports = async function(deployer, _network, addresses) {
-  const [admin, _] = addresses;
+  const admin = DEPLOYER_ADDRESS;
 
   await deployer.deploy(WETH);
   const weth = await WETH.deployed();
-  const tokenA = await MockERC20.new('Token A', 'TKA', web3.utils.toWei('1000'));
-  const tokenB = await MockERC20.new('Token B', 'TKB', web3.utils.toWei('1000'));
+  const tokenA = await MockERC20.new('Token A', 'TKA', '1000000000');
+  const tokenB = await MockERC20.new('Token B', 'TKB', '1000000000');
 
   await deployer.deploy(Factory, admin);
   const factory = await Factory.deployed();
@@ -30,7 +33,7 @@ module.exports = async function(deployer, _network, addresses) {
     MasterChef,
     sushiToken.address,
     admin,
-    web3.utils.toWei('100'),
+    '100000000',
     1,
     1
   );
@@ -49,12 +52,4 @@ module.exports = async function(deployer, _network, addresses) {
   );
   const sushiMaker = await SushiMaker.deployed();
   await factory.setFeeTo(sushiMaker.address);
-
-  await deployer.deploy(
-    Migrator,
-    masterChef.address,
-    '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f',
-    factory.address,
-    1
-  );
 };
