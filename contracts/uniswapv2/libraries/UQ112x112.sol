@@ -1,4 +1,4 @@
-pragma solidity =0.6.12;
+pragma solidity 0.5.10;
 
 // a library for handling binary fixed point numbers (https://en.wikipedia.org/wiki/Q_(number_format))
 

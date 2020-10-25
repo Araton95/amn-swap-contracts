@@ -1,7 +1,7 @@
-pragma solidity 0.6.12;
+pragma solidity 0.5.10;
 
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "./ERC20.sol";
 
 
 contract MockERC20 is ERC20 {
